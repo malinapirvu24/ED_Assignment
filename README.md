@@ -1,2 +1,2 @@
 # ED_Assignment
-Clock Synchronization for Sensor Network
+Clock Synchronization for Wireless Sensor Networks
