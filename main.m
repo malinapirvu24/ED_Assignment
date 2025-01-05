@@ -4,17 +4,25 @@ clc;
 
 load("ClockSync.mat");
 
-estimator = tau + tx_timestamps - rx_timestamps;
+data = - tau - tx_timestamps + rx_timestamps;
 for i = 1:1:6 % different noise variances
     for j = 1:1:10000 % realisations
-        MSE(j,i) = (-mean(estimator(:, j, i)) - phi_2)^2;
+        MSE(j,i) = (mean(data(:, j, i)) - phi_2)^2;
     end
 end
 figure;
-plot(noise_var, noise_var/10, LineWidth=2)
-hold on
-plot(noise_var, mean(MSE, 1), LineWidth=2)
+plot(noise_var, noise_var/10, LineWidth=3, Color='Blue')
 grid on
 xlabel("Noise variance")
 ylabel("Error")
-legend("CRLB", "MSE")
+ylim([0, 0.01])
+
+figure;
+plot(noise_var, noise_var/10, LineWidth=3, Color='Blue')
+hold on
+plot(noise_var, mean(MSE, 1), LineWidth=3, Color='Red')
+grid on
+xlabel("Noise variance")
+ylabel("Error")
+ylim([0, 0.01])
+legend("Theoretical", "Numerical")
